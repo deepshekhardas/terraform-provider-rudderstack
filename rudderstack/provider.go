@@ -52,7 +52,8 @@ func New() *schema.Provider {
 
 func resourcesMap() map[string]*schema.Resource {
 	resources := map[string]*schema.Resource{
-		"rudderstack_connection": resourceConnection(),
+		"rudderstack_connection":     resourceConnection(),
+		"rudderstack_transformation": resourceTransformation(),
 	}
 
 	// append sources and destinations from integration registries
