@@ -33,7 +33,7 @@ type TransformationsService interface {
 	Delete(ctx context.Context, id string) error
 }
 
-func NewAPIClient(accessToken string, options ...client.Option) (*Client, error) {
+func NewAPIClient(accessToken string, baseURL string, options ...client.Option) (*Client, error) {
 	api, err := client.New(accessToken, options...)
 	if err != nil {
 		return nil, err
@@ -43,7 +43,7 @@ func NewAPIClient(accessToken string, options ...client.Option) (*Client, error)
 		Sources:         api.Sources,
 		Destinations:    api.Destinations,
 		Connections:     api.Connections,
-		Transformations: &transformationsService{accessToken: accessToken, baseURL: apiUrl},
+		Transformations: &transformationsService{accessToken: accessToken, baseURL: baseURL},
 	}, nil
 }
 
