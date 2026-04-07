@@ -155,12 +155,7 @@ func Verify(ctx context.Context, cl *client.Client, info *IntegrationResource) (
 	}
 
 	// Filter actualMap to only include keys present in expectedMap for subset comparison.
-	filteredActual := make(map[string]interface{})
-	for key := range expectedMap {
-		if val, ok := actualMap[key]; ok {
-			filteredActual[key] = val
-		}
-	}
+	filteredActual := filterSubset(expectedMap, actualMap)
 
 	diff := cmp.Diff(expectedMap, filteredActual)
 
@@ -168,4 +163,23 @@ func Verify(ctx context.Context, cl *client.Client, info *IntegrationResource) (
 		Match: diff == "",
 		Diff:  diff,
 	}, nil
+}
+
+// filterSubset recursively filters actualMap to only include keys present in expectedMap.
+// This ensures nested config objects are compared using subset comparison.
+func filterSubset(expected, actual map[string]interface{}) map[string]interface{} {
+	result := make(map[string]interface{})
+	for key, expectedVal := range expected {
+		if actualVal, ok := actual[key]; ok {
+			// Recursively filter if both values are nested maps
+			if expectedMap, expectedIsMap := expectedVal.(map[string]interface{}); expectedIsMap {
+				if actualMap, actualIsMap := actualVal.(map[string]interface{}); actualIsMap {
+					result[key] = filterSubset(expectedMap, actualMap)
+					continue
+				}
+			}
+			result[key] = actualVal
+		}
+	}
+	return result
 }
