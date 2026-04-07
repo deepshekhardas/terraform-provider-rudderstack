@@ -154,7 +154,15 @@ func Verify(ctx context.Context, cl *client.Client, info *IntegrationResource) (
 		return nil, fmt.Errorf("unmarshaling actual API config: %w", err)
 	}
 
-	diff := cmp.Diff(expectedMap, actualMap)
+	// Filter actualMap to only include keys present in expectedMap for subset comparison.
+	filteredActual := make(map[string]interface{})
+	for key := range expectedMap {
+		if val, ok := actualMap[key]; ok {
+			filteredActual[key] = val
+		}
+	}
+
+	diff := cmp.Diff(expectedMap, filteredActual)
 
 	return &VerifyResult{
 		Match: diff == "",

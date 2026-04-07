@@ -27,7 +27,7 @@ resource "rudderstack_source_pagerduty" "example" {
 
 ### Optional
 
-- `enabled` (Boolean) An enabled source allows data to be read from it. For event stream sources this controls wether events can be sent to that source by various SDKs.
+- `enabled` (Boolean) An enabled source allows data to be read from it. For event stream sources this controls whether events can be sent to that source by various SDKs.
 
 ### Read-Only
 
