@@ -26,6 +26,7 @@ func init() {
 		c.Simple("bucketName", "s3.0.bucket_name"),
 		c.Simple("accessKeyID", "s3.0.access_key_id"),
 		c.Simple("accessKey", "s3.0.access_key"),
+		c.Simple("iamRoleARN", "s3.0.role_based_authentication.0.i_am_role_arn"),
 	}
 
 	properties = append(properties, commonProperties...)
@@ -140,6 +141,21 @@ func init() {
 						Sensitive:        true,
 						Description:      "Enter your AWS secret access key.",
 						ValidateDiagFunc: c.StringMatchesRegexp("(^env[.].+)|^(.{1,100})$"),
+					},
+					"role_based_authentication": {
+						Type:        schema.TypeList,
+						MaxItems:    1,
+						Optional:    true,
+						Description: "This option allows you select the arn based authentication.",
+						Elem: &schema.Resource{
+							Schema: map[string]*schema.Schema{
+								"i_am_role_arn": {
+									Type:        schema.TypeString,
+									Optional:    true,
+									Description: "Enter your AWS IAM role ARN.",
+								},
+							},
+						},
 					},
 				},
 			},

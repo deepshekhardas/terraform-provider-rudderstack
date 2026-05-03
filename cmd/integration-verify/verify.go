@@ -165,21 +165,39 @@ func Verify(ctx context.Context, cl *client.Client, info *IntegrationResource) (
 	}, nil
 }
 
-// filterSubset recursively filters actualMap to only include keys present in expectedMap.
-// This ensures nested config objects are compared using subset comparison.
-func filterSubset(expected, actual map[string]interface{}) map[string]interface{} {
-	result := make(map[string]interface{})
-	for key, expectedVal := range expected {
-		if actualVal, ok := actual[key]; ok {
-			// Recursively filter if both values are nested maps
-			if expectedMap, expectedIsMap := expectedVal.(map[string]interface{}); expectedIsMap {
-				if actualMap, actualIsMap := actualVal.(map[string]interface{}); actualIsMap {
-					result[key] = filterSubset(expectedMap, actualMap)
-					continue
-				}
-			}
-			result[key] = actualVal
+// filterSubset recursively filters actual values to only include structure/keys present in expected.
+// This ensures nested config objects and slices are compared using subset comparison.
+func filterSubset(expected, actual interface{}) interface{} {
+	switch e := expected.(type) {
+	case map[string]interface{}:
+		a, ok := actual.(map[string]interface{})
+		if !ok {
+			return actual
 		}
+		result := make(map[string]interface{})
+		for key, expectedVal := range e {
+			if actualVal, ok := a[key]; ok {
+				result[key] = filterSubset(expectedVal, actualVal)
+			}
+		}
+		return result
+
+	case []interface{}:
+		a, ok := actual.([]interface{})
+		if !ok {
+			return actual
+		}
+		// If lengths don't match, we can't easily filter by index without assuming order.
+		// However, for most RudderStack configs, order is preserved.
+		result := make([]interface{}, len(e))
+		for i, expectedVal := range e {
+			if i < len(a) {
+				result[i] = filterSubset(expectedVal, a[i])
+			}
+		}
+		return result
+
+	default:
+		return actual
 	}
-	return result
 }

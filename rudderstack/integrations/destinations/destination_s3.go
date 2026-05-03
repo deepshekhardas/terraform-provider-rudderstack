@@ -16,6 +16,7 @@ func init() {
 		c.Simple("accessKeyID", "access_key_id", c.SkipZeroValue),
 		c.Simple("accessKey", "access_key", c.SkipZeroValue),
 		c.Simple("enableSSE", "enable_sse", c.SkipZeroValue),
+		c.Simple("iamRoleARN", "role_based_authentication.0.i_am_role_arn", c.SkipZeroValue),
 	}
 
 	properties = append(properties, commonProperties...)
@@ -50,6 +51,21 @@ func init() {
 			Type:        schema.TypeBool,
 			Optional:    true,
 			Description: "This setting enables server-side encryption.",
+		},
+		"role_based_authentication": {
+			Type:        schema.TypeList,
+			MaxItems:    1,
+			Optional:    true,
+			Description: "This option allows you select the arn based authentication.",
+			Elem: &schema.Resource{
+				Schema: map[string]*schema.Schema{
+					"i_am_role_arn": {
+						Type:        schema.TypeString,
+						Optional:    true,
+						Description: "Enter your AWS IAM role ARN.",
+					},
+				},
+			},
 		},
 	}
 
