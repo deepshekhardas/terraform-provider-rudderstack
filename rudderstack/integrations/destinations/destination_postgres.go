@@ -23,13 +23,13 @@ func init() {
 		c.Simple("excludeWindow.excludeWindowStartTime", "exclude_window.0.exclude_window_start_time", c.SkipZeroValue),
 		c.Simple("excludeWindow.excludeWindowEndTime", "exclude_window.0.exclude_window_end_time", c.SkipZeroValue),
 		c.Simple("jsonPaths", "json_paths", c.SkipZeroValue),
-		c.Simple("useRudderStorage", "use_rudder_storage"), // boolean
+		c.Simple("useRudderStorage", "use_rudder_storage", c.SkipZeroValue), // boolean
 		c.Simple("bucketProvider", "bucket_provider", c.SkipZeroValue),
 		c.Simple("bucketName", "bucket_name", c.SkipZeroValue),
 		c.Simple("clientKey", "client_key", c.SkipZeroValue),
 		c.Simple("clientCert", "client_cert", c.SkipZeroValue),
 		c.Simple("serverCA", "server_ca", c.SkipZeroValue),
-		c.Simple("roleBasedAuth", "role_based_auth"), // boolean
+		c.Simple("roleBasedAuth", "role_based_auth", c.SkipZeroValue), // boolean
 		c.Simple("iamRoleARN", "iam_role_arn", c.SkipZeroValue),
 		c.Simple("accessKeyID", "access_key_id", c.SkipZeroValue),
 		c.Simple("accessKey", "access_key", c.SkipZeroValue),
