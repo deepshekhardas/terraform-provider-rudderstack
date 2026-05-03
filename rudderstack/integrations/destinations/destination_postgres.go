@@ -39,7 +39,6 @@ func init() {
 		c.Simple("useSASTokens", "use_sas_tokens", c.SkipZeroValue), // boolean
 		c.Simple("credentials", "credentials", c.SkipZeroValue),
 		c.Simple("endPoint", "end_point", c.SkipZeroValue),
-		c.Simple("accessKeyID", "access_key_id", c.SkipZeroValue),
 		c.Simple("secretAccessKey", "secret_access_key", c.SkipZeroValue),
 		c.Simple("useSSL", "use_ssl", c.SkipZeroValue), // boolean
 	}
@@ -112,6 +111,75 @@ func init() {
 			Type:        schema.TypeBool,
 			Required:    true,
 			Description: "Enable this setting to use RudderStack's data warehouse to store the data from your PostgreSQL database.",
+		},
+		"bucket_provider": {
+			Type:             schema.TypeString,
+			Optional:         true,
+			Description:      "The cloud object storage provider to use when use_rudder_storage is disabled.",
+			ValidateDiagFunc: c.StringMatchesRegexp("^(S3|GCS|AZURE_BLOB|MINIO)$"),
+		},
+		"bucket_name": {
+			Type:        schema.TypeString,
+			Optional:    true,
+			Description: "The name of the object storage bucket.",
+		},
+		"access_key_id": {
+			Type:        schema.TypeString,
+			Optional:    true,
+			Description: "The AWS Access Key ID (for S3 bucket provider).",
+		},
+		"access_key": {
+			Type:        schema.TypeString,
+			Optional:    true,
+			Sensitive:   true,
+			Description: "The AWS Secret Access Key (for S3 bucket provider).",
+		},
+		"role_based_auth": {
+			Type:        schema.TypeBool,
+			Optional:    true,
+			Description: "Enable this setting to use IAM role-based authentication.",
+		},
+		"iam_role_arn": {
+			Type:        schema.TypeString,
+			Optional:    true,
+			Description: "The AWS IAM Role ARN (for S3 bucket provider).",
+		},
+		"account_name": {
+			Type:        schema.TypeString,
+			Optional:    true,
+			Description: "The Azure Blob Storage account name.",
+		},
+		"account_key": {
+			Type:        schema.TypeString,
+			Optional:    true,
+			Sensitive:   true,
+			Description: "The Azure Blob Storage account key.",
+		},
+		"credentials": {
+			Type:        schema.TypeString,
+			Optional:    true,
+			Sensitive:   true,
+			Description: "The GCS service account credentials JSON.",
+		},
+		"exclude_window": {
+			Type:        schema.TypeList,
+			Optional:    true,
+			MaxItems:    1,
+			Description: "Set a time window during which RudderStack will not sync data to PostgreSQL.",
+			Elem: &schema.Resource{
+				Schema: map[string]*schema.Schema{
+					"exclude_window_start_time": {
+						Type:             schema.TypeString,
+						Optional:         true,
+						ValidateDiagFunc: c.StringMatchesRegexp("^([01][0-9]|2[0-3]):[0-5][0-9]$"),
+					},
+					"exclude_window_end_time": {
+						Type:             schema.TypeString,
+						Optional:         true,
+						ValidateDiagFunc: c.StringMatchesRegexp("^([01][0-9]|2[0-3]):[0-5][0-9]$"),
+					},
+				},
+			},
 		},
 	}
 

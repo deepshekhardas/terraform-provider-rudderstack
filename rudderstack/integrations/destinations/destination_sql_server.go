@@ -30,6 +30,8 @@ func init() {
 		c.Simple("accountName", "account_name", c.SkipZeroValue),
 		c.Simple("accountKey", "account_key", c.SkipZeroValue),
 		c.Simple("credentials", "credentials", c.SkipZeroValue),
+		c.Simple("roleBasedAuth", "role_based_auth", c.SkipZeroValue),
+		c.Simple("iamRoleARN", "iam_role_arn", c.SkipZeroValue),
 	}
 
 	properties = append(properties, commonProperties...)
@@ -150,6 +152,16 @@ func init() {
 			Optional:    true,
 			Sensitive:   true,
 			Description: "The GCS service account credentials JSON.",
+		},
+		"role_based_auth": {
+			Type:        schema.TypeBool,
+			Optional:    true,
+			Description: "Enable this setting to use IAM role-based authentication.",
+		},
+		"iam_role_arn": {
+			Type:        schema.TypeString,
+			Optional:    true,
+			Description: "The AWS IAM Role ARN (for S3 bucket provider).",
 		},
 	}
 
