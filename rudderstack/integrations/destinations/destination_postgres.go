@@ -24,8 +24,8 @@ func init() {
 		c.Simple("excludeWindow.excludeWindowEndTime", "exclude_window.0.exclude_window_end_time"),
 		c.Simple("jsonPaths", "json_paths"),
 		c.Simple("useRudderStorage", "use_rudder_storage", c.SkipZeroValue), // boolean
-		c.Simple("bucketProvider", "bucket_provider"),
-		c.Simple("bucketName", "bucket_name"),
+		c.Simple("bucketProvider", "bucket_provider", c.SkipZeroValue),
+		c.Simple("bucketName", "bucket_name", c.SkipZeroValue),
 		c.Simple("clientKey", "client_key", c.SkipZeroValue),
 		c.Simple("clientCert", "client_cert", c.SkipZeroValue),
 		c.Simple("serverCA", "server_ca", c.SkipZeroValue),
