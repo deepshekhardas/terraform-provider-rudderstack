@@ -26,6 +26,27 @@ type Transformation struct {
 	TestJSON    string `json:"testJson,omitempty"`
 }
 
+type SourcesService interface {
+	Create(ctx context.Context, source *client.Source) (*client.Source, error)
+	Get(ctx context.Context, id string) (*client.Source, error)
+	Update(ctx context.Context, source *client.Source) (*client.Source, error)
+	Delete(ctx context.Context, id string) error
+}
+
+type DestinationsService interface {
+	Create(ctx context.Context, destination *client.Destination) (*client.Destination, error)
+	Get(ctx context.Context, id string) (*client.Destination, error)
+	Update(ctx context.Context, destination *client.Destination) (*client.Destination, error)
+	Delete(ctx context.Context, id string) error
+}
+
+type ConnectionsService interface {
+	Create(ctx context.Context, connection *client.Connection) (*client.Connection, error)
+	Get(ctx context.Context, id string) (*client.Connection, error)
+	Update(ctx context.Context, connection *client.Connection) (*client.Connection, error)
+	Delete(ctx context.Context, id string) error
+}
+
 type TransformationsService interface {
 	Create(ctx context.Context, transformation *Transformation) (*Transformation, error)
 	Get(ctx context.Context, id string) (*Transformation, error)
