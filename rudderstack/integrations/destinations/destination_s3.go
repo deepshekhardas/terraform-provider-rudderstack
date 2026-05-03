@@ -16,6 +16,12 @@ func init() {
 		c.Simple("accessKeyID", "access_key_id", c.SkipZeroValue),
 		c.Simple("accessKey", "access_key", c.SkipZeroValue),
 		c.Simple("enableSSE", "enable_sse", c.SkipZeroValue),
+		c.Simple("iamRoleARN", "role_based_authentication.0.i_am_role_arn", c.SkipZeroValue),
+		c.Discriminator("roleBasedAuth", c.DiscriminatorValues{
+			"access_key":                false,
+			"access_key_id":             false,
+			"role_based_authentication": true,
+		}),
 	}
 
 	properties = append(properties, commonProperties...)
@@ -38,6 +44,9 @@ func init() {
 			Optional:         true,
 			Description:      "Enter your AWS access key ID.",
 			ValidateDiagFunc: c.StringMatchesRegexp("(^\\{\\{.*\\|\\|(.*)\\}\\}$)|(^env[.].+)|^(.{1,100})$"),
+			AtLeastOneOf:     []string{"config.0.access_key_id", "config.0.role_based_authentication"},
+			ConflictsWith:    []string{"config.0.role_based_authentication"},
+			RequiredWith:     []string{"config.0.access_key"},
 		},
 		"access_key": {
 			Type:             schema.TypeString,
@@ -45,11 +54,30 @@ func init() {
 			Sensitive:        true,
 			Description:      "Enter your AWS secret access key.",
 			ValidateDiagFunc: c.StringMatchesRegexp("(^\\{\\{.*\\|\\|(.*)\\}\\}$)|(^env[.].+)|^(.{1,100})$"),
+			ConflictsWith:    []string{"config.0.role_based_authentication"},
+			RequiredWith:     []string{"config.0.access_key_id"},
 		},
 		"enable_sse": {
 			Type:        schema.TypeBool,
 			Optional:    true,
 			Description: "This setting enables server-side encryption.",
+		},
+		"role_based_authentication": {
+			Type:          schema.TypeList,
+			MaxItems:      1,
+			Optional:      true,
+			Description:   "This option allows you select the arn based authentication.",
+			AtLeastOneOf:  []string{"config.0.access_key_id", "config.0.role_based_authentication"},
+			ConflictsWith: []string{"config.0.access_key_id", "config.0.access_key"},
+			Elem: &schema.Resource{
+				Schema: map[string]*schema.Schema{
+					"i_am_role_arn": {
+						Type:        schema.TypeString,
+						Optional:    true,
+						Description: "Enter your AWS IAM role ARN.",
+					},
+				},
+			},
 		},
 	}
 

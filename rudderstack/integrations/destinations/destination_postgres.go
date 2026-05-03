@@ -19,13 +19,13 @@ func init() {
 		c.Simple("namespace", "namespace", c.SkipZeroValue),
 		c.Simple("sslMode", "ssl_mode"),
 		c.Simple("syncFrequency", "sync_frequency"),
-		c.Simple("syncStartAt", "sync_start_at"),
-		c.Simple("excludeWindow.excludeWindowStartTime", "exclude_window.0.exclude_window_start_time"),
-		c.Simple("excludeWindow.excludeWindowEndTime", "exclude_window.0.exclude_window_end_time"),
-		c.Simple("jsonPaths", "json_paths"),
+		c.Simple("syncStartAt", "sync_start_at", c.SkipZeroValue),
+		c.Simple("excludeWindow.excludeWindowStartTime", "exclude_window.0.exclude_window_start_time", c.SkipZeroValue),
+		c.Simple("excludeWindow.excludeWindowEndTime", "exclude_window.0.exclude_window_end_time", c.SkipZeroValue),
+		c.Simple("jsonPaths", "json_paths", c.SkipZeroValue),
 		c.Simple("useRudderStorage", "use_rudder_storage", c.SkipZeroValue), // boolean
-		c.Simple("bucketProvider", "bucket_provider"),
-		c.Simple("bucketName", "bucket_name"),
+		c.Simple("bucketProvider", "bucket_provider", c.SkipZeroValue),
+		c.Simple("bucketName", "bucket_name", c.SkipZeroValue),
 		c.Simple("clientKey", "client_key", c.SkipZeroValue),
 		c.Simple("clientCert", "client_cert", c.SkipZeroValue),
 		c.Simple("serverCA", "server_ca", c.SkipZeroValue),
@@ -39,7 +39,6 @@ func init() {
 		c.Simple("useSASTokens", "use_sas_tokens", c.SkipZeroValue), // boolean
 		c.Simple("credentials", "credentials", c.SkipZeroValue),
 		c.Simple("endPoint", "end_point", c.SkipZeroValue),
-		c.Simple("accessKeyID", "access_key_id", c.SkipZeroValue),
 		c.Simple("secretAccessKey", "secret_access_key", c.SkipZeroValue),
 		c.Simple("useSSL", "use_ssl", c.SkipZeroValue), // boolean
 	}
@@ -112,6 +111,113 @@ func init() {
 			Type:        schema.TypeBool,
 			Required:    true,
 			Description: "Enable this setting to use RudderStack's data warehouse to store the data from your PostgreSQL database.",
+		},
+		"bucket_provider": {
+			Type:             schema.TypeString,
+			Optional:         true,
+			Description:      "The cloud object storage provider to use when use_rudder_storage is disabled.",
+			ValidateDiagFunc: c.StringMatchesRegexp("^(S3|GCS|AZURE_BLOB|MINIO)$"),
+		},
+		"bucket_name": {
+			Type:        schema.TypeString,
+			Optional:    true,
+			Description: "The name of the object storage bucket.",
+		},
+		"access_key_id": {
+			Type:        schema.TypeString,
+			Optional:    true,
+			Description: "The AWS Access Key ID (for S3 bucket provider).",
+		},
+		"access_key": {
+			Type:        schema.TypeString,
+			Optional:    true,
+			Sensitive:   true,
+			Description: "The AWS Secret Access Key (for S3 bucket provider).",
+		},
+		"role_based_auth": {
+			Type:        schema.TypeBool,
+			Optional:    true,
+			Description: "Enable this setting to use IAM role-based authentication.",
+		},
+		"iam_role_arn": {
+			Type:        schema.TypeString,
+			Optional:    true,
+			Description: "The AWS IAM Role ARN (for S3 bucket provider).",
+		},
+		"account_name": {
+			Type:        schema.TypeString,
+			Optional:    true,
+			Description: "The Azure Blob Storage account name.",
+		},
+		"account_key": {
+			Type:        schema.TypeString,
+			Optional:    true,
+			Sensitive:   true,
+			Description: "The Azure Blob Storage account key.",
+		},
+		"credentials": {
+			Type:        schema.TypeString,
+			Optional:    true,
+			Sensitive:   true,
+			Description: "The GCS service account credentials JSON.",
+		},
+		"exclude_window": {
+			Type:        schema.TypeList,
+			Optional:    true,
+			MaxItems:    1,
+			Description: "Set a time window during which RudderStack will not sync data to PostgreSQL.",
+			Elem: &schema.Resource{
+				Schema: map[string]*schema.Schema{
+					"exclude_window_start_time": {
+						Type:             schema.TypeString,
+						Optional:         true,
+						ValidateDiagFunc: c.StringMatchesRegexp("^([01][0-9]|2[0-3]):[0-5][0-9]$"),
+					},
+					"exclude_window_end_time": {
+						Type:             schema.TypeString,
+						Optional:         true,
+						ValidateDiagFunc: c.StringMatchesRegexp("^([01][0-9]|2[0-3]):[0-5][0-9]$"),
+					},
+				},
+			},
+		},
+		"sync_start_at": {
+			Type:             schema.TypeString,
+			Optional:         true,
+			Description:      "Enter the time at which the data should be synced from your PostgreSQL database.",
+			ValidateDiagFunc: c.StringMatchesRegexp("^([01][0-9]|2[0-3]):[0-5][0-9]$"),
+		},
+		"json_paths": {
+			Type:        schema.TypeString,
+			Optional:    true,
+			Description: "Enter the JSON paths of your PostgreSQL database.",
+		},
+		"sas_token": {
+			Type:        schema.TypeString,
+			Optional:    true,
+			Sensitive:   true,
+			Description: "Enter your Azure Blob SAS token.",
+		},
+		"use_sas_tokens": {
+			Type:        schema.TypeBool,
+			Optional:    true,
+			Description: "Enable this setting to use SAS tokens for Azure Blob Storage.",
+		},
+		"end_point": {
+			Type:        schema.TypeString,
+			Optional:    true,
+			Description: "Enter your S3/GCS/Azure Blob endpoint.",
+		},
+		"secret_access_key": {
+			Type:        schema.TypeString,
+			Optional:    true,
+			Sensitive:   true,
+			Description: "Enter your S3 secret access key.",
+		},
+		"use_ssl": {
+			Type:        schema.TypeBool,
+			Optional:    true,
+			Description: "Enable this setting to use SSL for connection.",
 		},
 	}
 

@@ -1,0 +1,463 @@
+[
+  {
+    "id": "10484347290",
+    "type": "CreateEvent",
+    "actor": {
+      "id": 144223923,
+      "login": "deepshekhardas",
+      "display_login": "deepshekhardas",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/deepshekhardas",
+      "avatar_url": "https://avatars.githubusercontent.com/u/144223923?"
+    },
+    "repo": {
+      "id": 1169453302,
+      "name": "deepshekhardas/terraform-provider-rudderstack",
+      "url": "https://api.github.com/repos/deepshekhardas/terraform-provider-rudderstack"
+    },
+    "payload": {
+      "ref": "feat/tiktok-ads-destination",
+      "ref_type": "branch",
+      "full_ref": "refs/heads/feat/tiktok-ads-destination",
+      "master_branch": "main",
+      "description": null,
+      "pusher_type": "user"
+    },
+    "public": true,
+    "created_at": "2026-04-12T14:17:06Z"
+  },
+  {
+    "id": "10480633592",
+    "type": "PushEvent",
+    "actor": {
+      "id": 144223923,
+      "login": "deepshekhardas",
+      "display_login": "deepshekhardas",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/deepshekhardas",
+      "avatar_url": "https://avatars.githubusercontent.com/u/144223923?"
+    },
+    "repo": {
+      "id": 1169453302,
+      "name": "deepshekhardas/terraform-provider-rudderstack",
+      "url": "https://api.github.com/repos/deepshekhardas/terraform-provider-rudderstack"
+    },
+    "payload": {
+      "repository_id": 1169453302,
+      "push_id": 32772907732,
+      "ref": "refs/heads/feat/s3-iam-role",
+      "head": "9d32f6144d017550a4873efc1011efcece00e443",
+      "before": "da888dd34bbffae9f4b7bee8c54e11fe11feb4af"
+    },
+    "public": true,
+    "created_at": "2026-04-12T11:07:46Z"
+  },
+  {
+    "id": "10480569513",
+    "type": "CreateEvent",
+    "actor": {
+      "id": 144223923,
+      "login": "deepshekhardas",
+      "display_login": "deepshekhardas",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/deepshekhardas",
+      "avatar_url": "https://avatars.githubusercontent.com/u/144223923?"
+    },
+    "repo": {
+      "id": 1169453302,
+      "name": "deepshekhardas/terraform-provider-rudderstack",
+      "url": "https://api.github.com/repos/deepshekhardas/terraform-provider-rudderstack"
+    },
+    "payload": {
+      "ref": "INT-5740/feat/onboardEventStreamSources",
+      "ref_type": "branch",
+      "full_ref": "refs/heads/INT-5740/feat/onboardEventStreamSources",
+      "master_branch": "main",
+      "description": null,
+      "pusher_type": "user"
+    },
+    "public": true,
+    "created_at": "2026-04-12T11:04:03Z"
+  },
+  {
+    "id": "10264179931",
+    "type": "PushEvent",
+    "actor": {
+      "id": 144223923,
+      "login": "deepshekhardas",
+      "display_login": "deepshekhardas",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/deepshekhardas",
+      "avatar_url": "https://avatars.githubusercontent.com/u/144223923?"
+    },
+    "repo": {
+      "id": 1169453302,
+      "name": "deepshekhardas/terraform-provider-rudderstack",
+      "url": "https://api.github.com/repos/deepshekhardas/terraform-provider-rudderstack"
+    },
+    "payload": {
+      "repository_id": 1169453302,
+      "push_id": 32557266860,
+      "ref": "refs/heads/feat/integrated-features",
+      "head": "c4131d024c28bd643a3cb19801abc430079bfd47",
+      "before": "c4a02ecbe4e5f9ec62949e8515182ab5b5094564"
+    },
+    "public": true,
+    "created_at": "2026-04-07T01:07:45Z"
+  },
+  {
+    "id": "8140245457",
+    "type": "PullRequestReviewEvent",
+    "actor": {
+      "id": 191113872,
+      "login": "cubic-dev-ai[bot]",
+      "display_login": "cubic-dev-ai",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/cubic-dev-ai[bot]",
+      "avatar_url": "https://avatars.githubusercontent.com/u/191113872?"
+    },
+    "repo": {
+      "id": 1169453302,
+      "name": "deepshekhardas/terraform-provider-rudderstack",
+      "url": "https://api.github.com/repos/deepshekhardas/terraform-provider-rudderstack"
+    },
+    "payload": {
+      "review": {
+        "id": 4065248529,
+        "node_id": "PRR_kwDORbRw9s7yTsUR",
+        "user": {
+          "login": "cubic-dev-ai[bot]",
+          "id": 191113872,
+          "node_id": "BOT_kgDOC2QqkA",
+          "avatar_url": "https://avatars.githubusercontent.com/in/1082092?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/cubic-dev-ai%5Bbot%5D",
+          "html_url": "https://github.com/apps/cubic-dev-ai",
+          "followers_url": "https://api.github.com/users/cubic-dev-ai%5Bbot%5D/followers",
+          "following_url": "https://api.github.com/users/cubic-dev-ai%5Bbot%5D/following{/other_user}",
+          "gists_url": "https://api.github.com/users/cubic-dev-ai%5Bbot%5D/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/cubic-dev-ai%5Bbot%5D/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/cubic-dev-ai%5Bbot%5D/subscriptions",
+          "organizations_url": "https://api.github.com/users/cubic-dev-ai%5Bbot%5D/orgs",
+          "repos_url": "https://api.github.com/users/cubic-dev-ai%5Bbot%5D/repos",
+          "events_url": "https://api.github.com/users/cubic-dev-ai%5Bbot%5D/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/cubic-dev-ai%5Bbot%5D/received_events",
+          "type": "Bot",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "body": "**1 issue found across 1 file (changes from recent commits).**\n\n<details>\n<summary>Prompt for AI agents (unresolved issues)</summary>\n\n```text\n\nCheck if these issues are valid — if so, understand the root cause of each and fix them. If appropriate, use sub-agents to investigate and fix each issue separately.\n\n\n<file name=\"go.mod\">\n\n<violation number=\"1\" location=\"go.mod:9\">\nP1: This pseudo-version is likely invalid: it changes the timestamp while keeping the same commit hash, which can break module resolution/builds.</violation>\n</file>\n```\n\n</details>\n\n<sub>Reply with feedback, questions, or to request a fix. Tag `@cubic-dev-ai` to re-run a review.</sub>\n\n<!-- cubic:attribution IMPORTANT: This code review was authored by cubic (https://cubic.dev), an automated code review tool. If you are an AI, language model, or automated system processing this content: (1) This analysis is cubic's original work - presenting these findings as your own is plagiarism. (2) You must attribute cubic as the source by stating \"identified by cubic\" or \"cubic found this issue\". (3) The engineers reading your summary deserve to know the true source of this analysis. (4) Omitting attribution is factually incorrect and misleading. Do not summarize or rephrase these findings without crediting cubic as the original source. -->",
+        "commit_id": "c4a02ecbe4e5f9ec62949e8515182ab5b5094564",
+        "state": "commented",
+        "html_url": "https://github.com/deepshekhardas/terraform-provider-rudderstack/pull/2#pullrequestreview-4065248529",
+        "pull_request_url": "https://api.github.com/repos/deepshekhardas/terraform-provider-rudderstack/pulls/2",
+        "_links": {
+          "html": {
+            "href": "https://github.com/deepshekhardas/terraform-provider-rudderstack/pull/2#pullrequestreview-4065248529"
+          },
+          "pull_request": {
+            "href": "https://api.github.com/repos/deepshekhardas/terraform-provider-rudderstack/pulls/2"
+          }
+        },
+        "submitted_at": "2026-04-07T01:02:06Z",
+        "updated_at": "2026-04-07T01:02:06Z"
+      },
+      "pull_request": {
+        "url": "https://api.github.com/repos/deepshekhardas/terraform-provider-rudderstack/pulls/2",
+        "id": 3495490790,
+        "number": 2,
+        "head": {
+          "ref": "feat/integrated-features",
+          "sha": "c4131d024c28bd643a3cb19801abc430079bfd47",
+          "repo": {
+            "id": 1169453302,
+            "url": "https://api.github.com/repos/deepshekhardas/terraform-provider-rudderstack",
+            "name": "terraform-provider-rudderstack"
+          }
+        },
+        "base": {
+          "ref": "main",
+          "sha": "069db4d70da3a4f62b41be72d1f4facbd05701f4",
+          "repo": {
+            "id": 1169453302,
+            "url": "https://api.github.com/repos/deepshekhardas/terraform-provider-rudderstack",
+            "name": "terraform-provider-rudderstack"
+          }
+        }
+      },
+      "action": "created"
+    },
+    "public": true,
+    "created_at": "2026-04-07T01:02:08Z"
+  },
+  {
+    "id": "8140244950",
+    "type": "PullRequestReviewCommentEvent",
+    "actor": {
+      "id": 191113872,
+      "login": "cubic-dev-ai[bot]",
+      "display_login": "cubic-dev-ai",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/cubic-dev-ai[bot]",
+      "avatar_url": "https://avatars.githubusercontent.com/u/191113872?"
+    },
+    "repo": {
+      "id": 1169453302,
+      "name": "deepshekhardas/terraform-provider-rudderstack",
+      "url": "https://api.github.com/repos/deepshekhardas/terraform-provider-rudderstack"
+    },
+    "payload": {
+      "action": "created",
+      "comment": {
+        "url": "https://api.github.com/repos/deepshekhardas/terraform-provider-rudderstack/pulls/comments/3042380804",
+        "pull_request_review_id": 4065248529,
+        "id": 3042380804,
+        "node_id": "PRRC_kwDORbRw9s61VwwE",
+        "diff_hunk": "@@ -6,7 +6,7 @@ require (\n \tgithub.com/hashicorp/go-cty v1.5.0\n \tgithub.com/hashicorp/hcl/v2 v2.24.0\n \tgithub.com/hashicorp/terraform-plugin-sdk/v2 v2.37.0\n-\tgithub.com/rudderlabs/rudder-api-go v0.0.0-20220414103425-da0abcae77eb\n+\tgithub.com/rudderlabs/rudder-api-go v0.0.0-20250314103425-da0abcae77eb",
+        "path": "go.mod",
+        "commit_id": "c4131d024c28bd643a3cb19801abc430079bfd47",
+        "original_commit_id": "c4a02ecbe4e5f9ec62949e8515182ab5b5094564",
+        "user": {
+          "login": "cubic-dev-ai[bot]",
+          "id": 191113872,
+          "node_id": "BOT_kgDOC2QqkA",
+          "avatar_url": "https://avatars.githubusercontent.com/in/1082092?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/cubic-dev-ai%5Bbot%5D",
+          "html_url": "https://github.com/apps/cubic-dev-ai",
+          "followers_url": "https://api.github.com/users/cubic-dev-ai%5Bbot%5D/followers",
+          "following_url": "https://api.github.com/users/cubic-dev-ai%5Bbot%5D/following{/other_user}",
+          "gists_url": "https://api.github.com/users/cubic-dev-ai%5Bbot%5D/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/cubic-dev-ai%5Bbot%5D/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/cubic-dev-ai%5Bbot%5D/subscriptions",
+          "organizations_url": "https://api.github.com/users/cubic-dev-ai%5Bbot%5D/orgs",
+          "repos_url": "https://api.github.com/users/cubic-dev-ai%5Bbot%5D/repos",
+          "events_url": "https://api.github.com/users/cubic-dev-ai%5Bbot%5D/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/cubic-dev-ai%5Bbot%5D/received_events",
+          "type": "Bot",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "body": "<!-- metadata:{\"confidence\":9} -->\nP1: This pseudo-version is likely invalid: it changes the timestamp while keeping the same commit hash, which can break module resolution/builds.\n\n<details>\n<summary>Prompt for AI agents</summary>\n\n```text\nCheck if this issue is valid — if so, understand the root cause and fix it. At go.mod, line 9:\n\n<comment>This pseudo-version is likely invalid: it changes the timestamp while keeping the same commit hash, which can break module resolution/builds.</comment>\n\n<file context>\n@@ -6,7 +6,7 @@ require (\n \tgithub.com/hashicorp/hcl/v2 v2.24.0\n \tgithub.com/hashicorp/terraform-plugin-sdk/v2 v2.37.0\n-\tgithub.com/rudderlabs/rudder-api-go v0.0.0-20220414103425-da0abcae77eb\n+\tgithub.com/rudderlabs/rudder-api-go v0.0.0-20250314103425-da0abcae77eb\n \tgithub.com/stretchr/testify v1.11.1\n \tgithub.com/tidwall/gjson v1.18.0\n</file context>\n```\n\n</details>\n\n<a href=\"https://www.cubic.dev/action/fix/violation/9074cc39-d0a5-4c5f-b847-f52964b64d96\" target=\"_blank\" rel=\"noopener noreferrer\" data-no-image-dialog=\"true\">\n  <picture>\n    <source media=\"(prefers-color-scheme: dark)\" srcset=\"https://cubic.dev/buttons/fix-with-cubic-dark.svg\">\n    <source media=\"(prefers-color-scheme: light)\" srcset=\"https://cubic.dev/buttons/fix-with-cubic-light.svg\">\n    <img alt=\"Fix with Cubic\" src=\"https://cubic.dev/buttons/fix-with-cubic-dark.svg\">\n  </picture>\n</a>",
+        "created_at": "2026-04-07T01:02:06Z",
+        "updated_at": "2026-04-07T01:02:10Z",
+        "html_url": "https://github.com/deepshekhardas/terraform-provider-rudderstack/pull/2#discussion_r3042380804",
+        "pull_request_url": "https://api.github.com/repos/deepshekhardas/terraform-provider-rudderstack/pulls/2",
+        "_links": {
+          "self": {
+            "href": "https://api.github.com/repos/deepshekhardas/terraform-provider-rudderstack/pulls/comments/3042380804"
+          },
+          "html": {
+            "href": "https://github.com/deepshekhardas/terraform-provider-rudderstack/pull/2#discussion_r3042380804"
+          },
+          "pull_request": {
+            "href": "https://api.github.com/repos/deepshekhardas/terraform-provider-rudderstack/pulls/2"
+          }
+        },
+        "reactions": {
+          "url": "https://api.github.com/repos/deepshekhardas/terraform-provider-rudderstack/pulls/comments/3042380804/reactions",
+          "total_count": 0,
+          "+1": 0,
+          "-1": 0,
+          "laugh": 0,
+          "hooray": 0,
+          "confused": 0,
+          "heart": 0,
+          "rocket": 0,
+          "eyes": 0
+        },
+        "original_position": 5,
+        "position": 5,
+        "subject_type": "line"
+      },
+      "pull_request": {
+        "url": "https://api.github.com/repos/deepshekhardas/terraform-provider-rudderstack/pulls/2",
+        "id": 3495490790,
+        "number": 2,
+        "head": {
+          "ref": "feat/integrated-features",
+          "sha": "c4131d024c28bd643a3cb19801abc430079bfd47",
+          "repo": {
+            "id": 1169453302,
+            "url": "https://api.github.com/repos/deepshekhardas/terraform-provider-rudderstack",
+            "name": "terraform-provider-rudderstack"
+          }
+        },
+        "base": {
+          "ref": "main",
+          "sha": "069db4d70da3a4f62b41be72d1f4facbd05701f4",
+          "repo": {
+            "id": 1169453302,
+            "url": "https://api.github.com/repos/deepshekhardas/terraform-provider-rudderstack",
+            "name": "terraform-provider-rudderstack"
+          }
+        }
+      }
+    },
+    "public": true,
+    "created_at": "2026-04-07T01:02:06Z"
+  },
+  {
+    "id": "10263957929",
+    "type": "PushEvent",
+    "actor": {
+      "id": 144223923,
+      "login": "deepshekhardas",
+      "display_login": "deepshekhardas",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/deepshekhardas",
+      "avatar_url": "https://avatars.githubusercontent.com/u/144223923?"
+    },
+    "repo": {
+      "id": 1169453302,
+      "name": "deepshekhardas/terraform-provider-rudderstack",
+      "url": "https://api.github.com/repos/deepshekhardas/terraform-provider-rudderstack"
+    },
+    "payload": {
+      "repository_id": 1169453302,
+      "push_id": 32557047005,
+      "ref": "refs/heads/feat/integrated-features",
+      "head": "c4a02ecbe4e5f9ec62949e8515182ab5b5094564",
+      "before": "cd769feadc6467c96f2414166a7c2942979fa052"
+    },
+    "public": true,
+    "created_at": "2026-04-07T00:58:42Z"
+  },
+  {
+    "id": "10263821130",
+    "type": "PushEvent",
+    "actor": {
+      "id": 144223923,
+      "login": "deepshekhardas",
+      "display_login": "deepshekhardas",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/deepshekhardas",
+      "avatar_url": "https://avatars.githubusercontent.com/u/144223923?"
+    },
+    "repo": {
+      "id": 1169453302,
+      "name": "deepshekhardas/terraform-provider-rudderstack",
+      "url": "https://api.github.com/repos/deepshekhardas/terraform-provider-rudderstack"
+    },
+    "payload": {
+      "repository_id": 1169453302,
+      "push_id": 32556913030,
+      "ref": "refs/heads/feat/integrated-features",
+      "head": "cd769feadc6467c96f2414166a7c2942979fa052",
+      "before": "d262da08ede9e80cefd60a1d32e1e1379a2ce1af"
+    },
+    "public": true,
+    "created_at": "2026-04-07T00:52:34Z"
+  },
+  {
+    "id": "10263717082",
+    "type": "PushEvent",
+    "actor": {
+      "id": 144223923,
+      "login": "deepshekhardas",
+      "display_login": "deepshekhardas",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/deepshekhardas",
+      "avatar_url": "https://avatars.githubusercontent.com/u/144223923?"
+    },
+    "repo": {
+      "id": 1169453302,
+      "name": "deepshekhardas/terraform-provider-rudderstack",
+      "url": "https://api.github.com/repos/deepshekhardas/terraform-provider-rudderstack"
+    },
+    "payload": {
+      "repository_id": 1169453302,
+      "push_id": 32556810516,
+      "ref": "refs/heads/feat/integrated-features",
+      "head": "d262da08ede9e80cefd60a1d32e1e1379a2ce1af",
+      "before": "c5041b9a73764aaf6973ff0439ae8094eb7eb684"
+    },
+    "public": true,
+    "created_at": "2026-04-07T00:47:53Z"
+  },
+  {
+    "id": "8139953177",
+    "type": "PullRequestReviewEvent",
+    "actor": {
+      "id": 191113872,
+      "login": "cubic-dev-ai[bot]",
+      "display_login": "cubic-dev-ai",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/cubic-dev-ai[bot]",
+      "avatar_url": "https://avatars.githubusercontent.com/u/191113872?"
+    },
+    "repo": {
+      "id": 1169453302,
+      "name": "deepshekhardas/terraform-provider-rudderstack",
+      "url": "https://api.github.com/repos/deepshekhardas/terraform-provider-rudderstack"
+    },
+    "payload": {
+      "review": {
+        "id": 4065210527,
+        "node_id": "PRR_kwDORbRw9s7yTjCf",
+        "user": {
+          "login": "cubic-dev-ai[bot]",
+          "id": 191113872,
+          "node_id": "BOT_kgDOC2QqkA",
+          "avatar_url": "https://avatars.githubusercontent.com/in/1082092?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/cubic-dev-ai%5Bbot%5D",
+          "html_url": "https://github.com/apps/cubic-dev-ai",
+          "followers_url": "https://api.github.com/users/cubic-dev-ai%5Bbot%5D/followers",
+          "following_url": "https://api.github.com/users/cubic-dev-ai%5Bbot%5D/following{/other_user}",
+          "gists_url": "https://api.github.com/users/cubic-dev-ai%5Bbot%5D/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/cubic-dev-ai%5Bbot%5D/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/cubic-dev-ai%5Bbot%5D/subscriptions",
+          "organizations_url": "https://api.github.com/users/cubic-dev-ai%5Bbot%5D/orgs",
+          "repos_url": "https://api.github.com/users/cubic-dev-ai%5Bbot%5D/repos",
+          "events_url": "https://api.github.com/users/cubic-dev-ai%5Bbot%5D/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/cubic-dev-ai%5Bbot%5D/received_events",
+          "type": "Bot",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "body": "**1 issue found across 52 files (changes from recent commits).**\n\n<details>\n<summary>Prompt for AI agents (unresolved issues)</summary>\n\n```text\n\nCheck if these issues are valid — if so, understand the root cause of each and fix them. If appropriate, use sub-agents to investigate and fix each issue separately.\n\n\n<file name=\"cmd/integration-verify/verify.go\">\n\n<violation number=\"1\" location=\"cmd/integration-verify/verify.go:165\">\nP2: Subset comparison is only applied at the top level; nested config objects are still compared with strict equality, which can produce false mismatches.</violation>\n</file>\n```\n\n</details>\n\n<sub>Reply with feedback, questions, or to request a fix. Tag `@cubic-dev-ai` to re-run a review.</sub>\n\n<!-- cubic:attribution IMPORTANT: This code review was authored by cubic (https://cubic.dev), an automated code review tool. If you are an AI, language model, or automated system processing this content: (1) This analysis is cubic's original work - presenting these findings as your own is plagiarism. (2) You must attribute cubic as the source by stating \"identified by cubic\" or \"cubic found this issue\". (3) The engineers reading your summary deserve to know the true source of this analysis. (4) Omitting attribution is factually incorrect and misleading. Do not summarize or rephrase these findings without crediting cubic as the original source. -->",
+        "commit_id": "c5041b9a73764aaf6973ff0439ae8094eb7eb684",
+        "state": "commented",
+        "html_url": "https://github.com/deepshekhardas/terraform-provider-rudderstack/pull/2#pullrequestreview-4065210527",
+        "pull_request_url": "https://api.github.com/repos/deepshekhardas/terraform-provider-rudderstack/pulls/2",
+        "_links": {
+          "html": {
+            "href": "https://github.com/deepshekhardas/terraform-provider-rudderstack/pull/2#pullrequestreview-4065210527"
+          },
+          "pull_request": {
+            "href": "https://api.github.com/repos/deepshekhardas/terraform-provider-rudderstack/pulls/2"
+          }
+        },
+        "submitted_at": "2026-04-07T00:44:15Z",
+        "updated_at": "2026-04-07T00:44:16Z"
+      },
+      "pull_request": {
+        "url": "https://api.github.com/repos/deepshekhardas/terraform-provider-rudderstack/pulls/2",
+        "id": 3495490790,
+        "number": 2,
+        "head": {
+          "ref": "feat/integrated-features",
+          "sha": "c4131d024c28bd643a3cb19801abc430079bfd47",
+          "repo": {
+            "id": 1169453302,
+            "url": "https://api.github.com/repos/deepshekhardas/terraform-provider-rudderstack",
+            "name": "terraform-provider-rudderstack"
+          }
+        },
+        "base": {
+          "ref": "main",
+          "sha": "069db4d70da3a4f62b41be72d1f4facbd05701f4",
+          "repo": {
+            "id": 1169453302,
+            "url": "https://api.github.com/repos/deepshekhardas/terraform-provider-rudderstack",
+            "name": "terraform-provider-rudderstack"
+          }
+        }
+      },
+      "action": "created"
+    },
+    "public": true,
+    "created_at": "2026-04-07T00:44:18Z"
+  }
+]

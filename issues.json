@@ -1,0 +1,76 @@
+[
+  {
+    "url": "https://api.github.com/repos/deepshekhardas/terraform-provider-rudderstack/issues/2",
+    "repository_url": "https://api.github.com/repos/deepshekhardas/terraform-provider-rudderstack",
+    "labels_url": "https://api.github.com/repos/deepshekhardas/terraform-provider-rudderstack/issues/2/labels{/name}",
+    "comments_url": "https://api.github.com/repos/deepshekhardas/terraform-provider-rudderstack/issues/2/comments",
+    "events_url": "https://api.github.com/repos/deepshekhardas/terraform-provider-rudderstack/issues/2/events",
+    "html_url": "https://github.com/deepshekhardas/terraform-provider-rudderstack/pull/2",
+    "id": 4214684198,
+    "node_id": "PR_kwDORbRw9s7QWPTm",
+    "number": 2,
+    "title": "feat: integrate multiple destination and source features",
+    "user": {
+      "login": "deepshekhardas",
+      "id": 144223923,
+      "node_id": "U_kgDOCJiusw",
+      "avatar_url": "https://avatars.githubusercontent.com/u/144223923?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/deepshekhardas",
+      "html_url": "https://github.com/deepshekhardas",
+      "followers_url": "https://api.github.com/users/deepshekhardas/followers",
+      "following_url": "https://api.github.com/users/deepshekhardas/following{/other_user}",
+      "gists_url": "https://api.github.com/users/deepshekhardas/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/deepshekhardas/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/deepshekhardas/subscriptions",
+      "organizations_url": "https://api.github.com/users/deepshekhardas/orgs",
+      "repos_url": "https://api.github.com/users/deepshekhardas/repos",
+      "events_url": "https://api.github.com/users/deepshekhardas/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/deepshekhardas/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "labels": [
+
+    ],
+    "state": "open",
+    "locked": false,
+    "assignees": [
+
+    ],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2026-04-07T00:08:14Z",
+    "updated_at": "2026-04-07T01:08:25Z",
+    "closed_at": null,
+    "assignee": null,
+    "author_association": "OWNER",
+    "active_lock_reason": null,
+    "draft": false,
+    "pull_request": {
+      "url": "https://api.github.com/repos/deepshekhardas/terraform-provider-rudderstack/pulls/2",
+      "html_url": "https://github.com/deepshekhardas/terraform-provider-rudderstack/pull/2",
+      "diff_url": "https://github.com/deepshekhardas/terraform-provider-rudderstack/pull/2.diff",
+      "patch_url": "https://github.com/deepshekhardas/terraform-provider-rudderstack/pull/2.patch",
+      "merged_at": null
+    },
+    "body": "This PR integrates multiple features:\n\n- PR #198: Onboard 29 event stream sources\n- PR #197: TikTok Ads destination  \n- PR #186: SQL Server destination\n\n## Changes\n- Merged all destination and source features into a single branch\n- 122 files changed, 5315 insertions(+), 71 deletions(-)\n- Ready for review\n\n<!-- This is an auto-generated description by cubic. -->\n---\n## Summary by cubic\nAdds TikTok Ads and SQL Server destinations, onboards 29 event stream sources, and ships automation to generate and verify integrations. Improves Snowflake with key pair auth and S3 IAM role; updates docs/examples and upgrades `rudder-api-go` and regenerates dependencies.\n\n- **New Features**\n  - Destinations: `rudderstack_destination_tiktok_ads`, `rudderstack_destination_sql_server` with tests, docs, and examples.\n  - Sources: 29 event stream sources (e.g., `amp`, `android_kotlin`, `ios_swift`, `unity`) with docs and examples.\n  - Snowflake: `use_key_pair_auth`, `private_key`, `private_key_passphrase`; S3 IAM role support; updated docs/examples.\n  - Tooling: `/cmd/integration-verify` CLI for E2E verification (supports `RUDDERSTACK_API_URL`, fixes recursive subset comparison); `.claude/skills/onboard-integration` to generate code/tests/docs from config JSON; updated to latest `rudder-api-go` with Sources/Destinations/Connections services; removed `go.sum` to regenerate with updated dependencies.\n\n- **Migration**\n  - Update your provider constraint to `~> 4.3.1`.\n  - For Snowflake, keep `password` for default auth, or set `use_key_pair_auth = true` and provide `private_key` (and `private_key_passphrase` if encrypted). Configure S3 via access keys or an IAM role as needed.\n\n<sup>Written for commit c4131d024c28bd643a3cb19801abc430079bfd47. Summary will update on new commits.</sup>\n\n<!-- End of auto-generated description by cubic. -->\n\n",
+    "closed_by": null,
+    "reactions": {
+      "url": "https://api.github.com/repos/deepshekhardas/terraform-provider-rudderstack/issues/2/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "timeline_url": "https://api.github.com/repos/deepshekhardas/terraform-provider-rudderstack/issues/2/timeline",
+    "performed_via_github_app": null,
+    "state_reason": null
+  }
+]
