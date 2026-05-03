@@ -31,7 +31,9 @@ func TestDestinationResourceRedshift(t *testing.T) {
 				"database": "example-database",
 				"namespace": "example-namespace",
 				"useRudderStorage": true,
-				"syncFrequency": "30"
+				"syncFrequency": "30",
+				"roleBasedAuth": false,
+				"enableSSE": false
 			}`,
 			TerraformUpdate: `
 				host = "example.com"
