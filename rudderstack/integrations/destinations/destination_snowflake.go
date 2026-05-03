@@ -15,17 +15,17 @@ func init() {
 	commonProperties, commonSchema := GetCommonConfigMeta(supportedSourceTypes)
 
 	properties := []c.ConfigProperty{
-		c.Simple("account", "account"),
-		c.Simple("database", "database"),
-		c.Simple("warehouse", "warehouse"),
-		c.Simple("user", "user"),
+		c.Simple("account", "account", c.SkipZeroValue),
+		c.Simple("database", "database", c.SkipZeroValue),
+		c.Simple("warehouse", "warehouse", c.SkipZeroValue),
+		c.Simple("user", "user", c.SkipZeroValue),
 		c.Simple("useKeyPairAuth", "use_key_pair_auth"),
 		c.Simple("password", "password", c.SkipZeroValue),
 		privateKeyProperty(),
 		c.Simple("privateKeyPassphrase", "private_key_passphrase", c.SkipZeroValue),
 		c.Simple("role", "role", c.SkipZeroValue),
 		c.Simple("namespace", "namespace", c.SkipZeroValue),
-		c.Simple("syncFrequency", "sync.0.frequency"),
+		c.Simple("syncFrequency", "sync.0.frequency", c.SkipZeroValue),
 		c.Simple("syncStartAt", "sync.0.start_at", c.SkipZeroValue),
 		c.Simple("excludeWindow.excludeWindowStartTime", "sync.0.exclude_window_start_time", c.SkipZeroValue),
 		c.Simple("excludeWindow.excludeWindowEndTime", "sync.0.exclude_window_end_time", c.SkipZeroValue),

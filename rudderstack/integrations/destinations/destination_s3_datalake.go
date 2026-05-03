@@ -22,7 +22,7 @@ func init() {
 			"access_key_id":             false,
 			"role_based_authentication": true,
 		}),
-		c.Simple("enableSSE", "enable_sse", c.SkipZeroValue),
+		c.Simple("enableSSE", "enable_sse"),
 		c.Simple("useGlue", "use_glue"),
 		c.Simple("region", "region", c.SkipZeroValue),
 		c.Simple("syncFrequency", "sync.0.frequency"),

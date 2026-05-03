@@ -17,26 +17,26 @@ func init() {
 		c.Simple("password", "password"),
 		c.Simple("port", "port"),
 		c.Simple("namespace", "namespace", c.SkipZeroValue),
-		c.Simple("sslMode", "ssl_mode", c.SkipZeroValue),
-		c.Simple("syncFrequency", "sync_frequency", c.SkipZeroValue),
+		c.Simple("sslMode", "ssl_mode"),
+		c.Simple("syncFrequency", "sync_frequency"),
 		c.Simple("syncStartAt", "sync_start_at", c.SkipZeroValue),
 		c.Simple("excludeWindow.excludeWindowStartTime", "exclude_window.0.exclude_window_start_time", c.SkipZeroValue),
 		c.Simple("excludeWindow.excludeWindowEndTime", "exclude_window.0.exclude_window_end_time", c.SkipZeroValue),
 		c.Simple("jsonPaths", "json_paths", c.SkipZeroValue),
-		c.Simple("useRudderStorage", "use_rudder_storage", c.SkipZeroValue), // boolean
+		c.Simple("useRudderStorage", "use_rudder_storage"), // boolean
 		c.Simple("bucketProvider", "bucket_provider", c.SkipZeroValue),
 		c.Simple("bucketName", "bucket_name", c.SkipZeroValue),
 		c.Simple("clientKey", "client_key", c.SkipZeroValue),
 		c.Simple("clientCert", "client_cert", c.SkipZeroValue),
 		c.Simple("serverCA", "server_ca", c.SkipZeroValue),
-		c.Simple("roleBasedAuth", "role_based_auth", c.SkipZeroValue), // boolean
+		c.Simple("roleBasedAuth", "role_based_auth"), // boolean
 		c.Simple("iamRoleARN", "iam_role_arn", c.SkipZeroValue),
 		c.Simple("accessKeyID", "access_key_id", c.SkipZeroValue),
 		c.Simple("accessKey", "access_key", c.SkipZeroValue),
 		c.Simple("accountName", "account_name", c.SkipZeroValue),
 		c.Simple("accountKey", "account_key", c.SkipZeroValue),
 		c.Simple("sasToken", "sas_token", c.SkipZeroValue),
-		c.Simple("useSASTokens", "use_sas_tokens", c.SkipZeroValue), // boolean
+		c.Simple("useSASTokens", "use_sas_tokens"), // boolean
 		c.Simple("credentials", "credentials", c.SkipZeroValue),
 		c.Simple("endPoint", "end_point", c.SkipZeroValue),
 		c.Simple("secretAccessKey", "secret_access_key", c.SkipZeroValue),
