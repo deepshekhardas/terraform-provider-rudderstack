@@ -187,17 +187,75 @@ func filterSubset(expected, actual interface{}) interface{} {
 		if !ok {
 			return actual
 		}
-		// If lengths don't match, we can't easily filter by index without assuming order.
-		// However, for most RudderStack configs, order is preserved.
+		// For each expected element, find the best matching element in the actual
+		// slice rather than assuming index-based ordering. This handles cases like
+		// consent_management where the API may return items in a different order
+		// or with additional fields.
+		used := make(map[int]bool)
 		result := make([]interface{}, len(e))
 		for i, expectedVal := range e {
-			if i < len(a) {
-				result[i] = filterSubset(expectedVal, a[i])
+			bestIdx := -1
+			bestScore := -1
+			for j, actualVal := range a {
+				if used[j] {
+					continue
+				}
+				score := subsetMatchScore(expectedVal, actualVal)
+				if score > bestScore {
+					bestScore = score
+					bestIdx = j
+				}
+			}
+			if bestIdx >= 0 {
+				used[bestIdx] = true
+				result[i] = filterSubset(expectedVal, a[bestIdx])
 			}
 		}
 		return result
 
 	default:
 		return actual
+	}
+}
+
+// subsetMatchScore returns a score indicating how well actual matches expected
+// as a subset. Higher scores mean better matches. Returns 0 for scalar equality,
+// -1 for mismatches.
+func subsetMatchScore(expected, actual interface{}) int {
+	switch e := expected.(type) {
+	case map[string]interface{}:
+		a, ok := actual.(map[string]interface{})
+		if !ok {
+			return -1
+		}
+		score := 0
+		for key, expectedVal := range e {
+			if actualVal, ok := a[key]; ok {
+				s := subsetMatchScore(expectedVal, actualVal)
+				if s < 0 {
+					return -1
+				}
+				score += s + 1 // +1 for key presence
+			} else {
+				return -1 // required key missing
+			}
+		}
+		return score
+
+	case []interface{}:
+		a, ok := actual.([]interface{})
+		if !ok {
+			return -1
+		}
+		if len(e) > len(a) {
+			return -1
+		}
+		return len(e)
+
+	default:
+		if fmt.Sprintf("%v", expected) == fmt.Sprintf("%v", actual) {
+			return 1
+		}
+		return -1
 	}
 }
