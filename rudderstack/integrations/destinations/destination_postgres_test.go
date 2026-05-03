@@ -28,8 +28,7 @@ func TestDestinationResourcePostgres(t *testing.T) {
 				"port": "test-port",
 				"sslMode": "disable",
 				"syncFrequency": "30",
-				"useRudderStorage": true,
-				"roleBasedAuth": false
+				"useRudderStorage": true
 			}`,
 			TerraformUpdate: `
 				host = "test-host"
