@@ -36,7 +36,7 @@ func init() {
 		c.Simple("accountName", "account_name", c.SkipZeroValue),
 		c.Simple("accountKey", "account_key", c.SkipZeroValue),
 		c.Simple("sasToken", "sas_token", c.SkipZeroValue),
-		c.Simple("useSASTokens", "use_sas_tokens"), // boolean
+		c.Simple("useSASTokens", "use_sas_tokens", c.SkipZeroValue), // boolean
 		c.Simple("credentials", "credentials", c.SkipZeroValue),
 		c.Simple("endPoint", "end_point", c.SkipZeroValue),
 		c.Simple("secretAccessKey", "secret_access_key", c.SkipZeroValue),

@@ -53,9 +53,6 @@ func TestDestinationResourceSqlServer(t *testing.T) {
 				"sslMode": "true",
 				"syncFrequency": "60",
 				"syncStartAt": "09:00",
-				"useRudderStorage": false,
-				"bucketProvider": "S3",
-				"bucketName": "my-bucket",
 				"accessKeyID": "my-key-id",
 				"accessKey": "my-secret"
 			}`,

@@ -133,7 +133,6 @@ func TestDestinationResourceRedshift(t *testing.T) {
 				"database": "example-database",
 				"namespace": "example-namespace",
 				"enableSSE": true,
-				"useRudderStorage": false,
 				"bucketName": "some-bucket-name",
 				"accessKeyID": "some-access-key-id",
 				"accessKey": "some-access-key",

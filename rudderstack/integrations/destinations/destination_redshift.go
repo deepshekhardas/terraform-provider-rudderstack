@@ -18,7 +18,7 @@ func init() {
 		c.Simple("password", "password"),
 		c.Simple("namespace", "namespace", c.SkipZeroValue),
 		c.Simple("enableSSE", "enable_sse"),
-		c.Simple("useRudderStorage", "use_rudder_storage"),
+		c.Simple("useRudderStorage", "use_rudder_storage", c.SkipZeroValue),
 		c.Simple("syncFrequency", "sync.0.frequency"),
 		c.Simple("syncStartAt", "sync.0.start_at", c.SkipZeroValue),
 		c.Simple("excludeWindow.excludeWindowStartTime", "sync.0.exclude_window_start_time", c.SkipZeroValue),
