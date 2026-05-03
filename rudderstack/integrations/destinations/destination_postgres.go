@@ -17,8 +17,8 @@ func init() {
 		c.Simple("password", "password"),
 		c.Simple("port", "port"),
 		c.Simple("namespace", "namespace", c.SkipZeroValue),
-		c.Simple("sslMode", "ssl_mode"),
-		c.Simple("syncFrequency", "sync_frequency"),
+		c.Simple("sslMode", "ssl_mode", c.SkipZeroValue),
+		c.Simple("syncFrequency", "sync_frequency", c.SkipZeroValue),
 		c.Simple("syncStartAt", "sync_start_at", c.SkipZeroValue),
 		c.Simple("excludeWindow.excludeWindowStartTime", "exclude_window.0.exclude_window_start_time", c.SkipZeroValue),
 		c.Simple("excludeWindow.excludeWindowEndTime", "exclude_window.0.exclude_window_end_time", c.SkipZeroValue),
@@ -180,6 +180,44 @@ func init() {
 					},
 				},
 			},
+		},
+		"sync_start_at": {
+			Type:             schema.TypeString,
+			Optional:         true,
+			Description:      "Enter the time at which the data should be synced from your PostgreSQL database.",
+			ValidateDiagFunc: c.StringMatchesRegexp("^([01][0-9]|2[0-3]):[0-5][0-9]$"),
+		},
+		"json_paths": {
+			Type:        schema.TypeString,
+			Optional:    true,
+			Description: "Enter the JSON paths of your PostgreSQL database.",
+		},
+		"sas_token": {
+			Type:        schema.TypeString,
+			Optional:    true,
+			Sensitive:   true,
+			Description: "Enter your Azure Blob SAS token.",
+		},
+		"use_sas_tokens": {
+			Type:        schema.TypeBool,
+			Optional:    true,
+			Description: "Enable this setting to use SAS tokens for Azure Blob Storage.",
+		},
+		"end_point": {
+			Type:        schema.TypeString,
+			Optional:    true,
+			Description: "Enter your S3/GCS/Azure Blob endpoint.",
+		},
+		"secret_access_key": {
+			Type:        schema.TypeString,
+			Optional:    true,
+			Sensitive:   true,
+			Description: "Enter your S3 secret access key.",
+		},
+		"use_ssl": {
+			Type:        schema.TypeBool,
+			Optional:    true,
+			Description: "Enable this setting to use SSL for connection.",
 		},
 	}
 
