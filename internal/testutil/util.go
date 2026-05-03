@@ -2,6 +2,7 @@ package testutil
 
 import (
 	"encoding/json"
+	"fmt"
 	"reflect"
 	"time"
 )
@@ -17,7 +18,11 @@ func JSONEq(a, b string) bool {
 		return false
 	}
 
-	return reflect.DeepEqual(am, bm)
+	res := reflect.DeepEqual(am, bm)
+	if !res {
+		fmt.Printf("JSONEq mismatch:\nACTUAL:   %s\nEXPECTED: %s\n", a, b)
+	}
+	return res
 }
 
 func TimePtr(t time.Time) *time.Time {
