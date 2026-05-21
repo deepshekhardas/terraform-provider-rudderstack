@@ -46,14 +46,14 @@ terraform {
   required_providers {
     rudderstack = {
       source  = "rudderlabs/rudderstack"
-      version = "~> 4.1.0"
+      version = "~> 4.5.1" # x-release-please-version
     }
   }
   required_version = "~> 1.10.5"
 }
 
 provider "rudderstack" {
-  # api_url      = "https://api.rudderstack.com/v2"
+  # api_url      = "https://api.rudderstack.com"
   # access_token = ""
 }
 ```

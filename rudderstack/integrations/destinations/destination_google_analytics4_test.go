@@ -3,40 +3,64 @@ package destinations_test
 import (
 	"testing"
 
+	acc "github.com/rudderlabs/terraform-provider-rudderstack/internal/testutil/acc"
 	cmt "github.com/rudderlabs/terraform-provider-rudderstack/internal/testutil/cm"
 	c "github.com/rudderlabs/terraform-provider-rudderstack/rudderstack/configs"
 )
 
-func TestDestinationResourceGoogleAnalytics4(t *testing.T) {
-	cmt.AssertDestination(t, "google_analytics4", []c.TestConfig{
-		{
-			TerraformCreate: `
+var googleAnalytics4TestConfigs = []c.TestConfig{
+	{
+		TerraformCreate: `
 				api_secret      = "..."
+				client_type = "gtag"
 				measurement_id  = "G-000000"
 			`,
-			APICreate: `{
+		APICreate: `{
 				"apiSecret": "...",
-				"measurementId": "G-000000"
+				"typesOfClient": "gtag",
+				"measurementId": "G-000000",
+				"debugMode": false
 			}`,
-			TerraformUpdate: `
+		TerraformUpdate: `
 				api_secret = "..."
 
-				types_of_client = "gtag"
+				client_type = "gtag"
 				measurement_id  = "G-000000"
 				firebase_app_id = "..."
-			
+
+				debug_mode              = true
 				block_page_view_event   = true
-				extend_page_view_params = true
 				send_user_id            = true
-			
+				sdk_base_url            = "https://www.example.com"
+				server_container_url    = "https://analytics.example.com"
+
+				pii_properties_to_ignore = [
+					{ pii_property = "email" },
+					{ pii_property = "phone" }
+				]
+
 				use_native_sdk {
+					web     = true
+					android = true
+					ios     = true
+				}
+
+				capture_page_view {
+					web = "gtag"
+				}
+
+				debug_view {
 					web = true
 				}
-			
+
+				override_client_and_session_ids {
+					web = true
+				}
+
 				event_filtering {
 					blacklist = ["one", "two", "three"]
 				}
-			
+
 				consent_management {
 					web = [
 						{
@@ -107,14 +131,20 @@ func TestDestinationResourceGoogleAnalytics4(t *testing.T) {
 					}]
 				}
 			`,
-			APIUpdate: `{
+		APIUpdate: `{
 				"apiSecret": "...",
 				"typesOfClient": "gtag",
 				"measurementId": "G-000000",
 				"firebaseAppId": "...",
+				"debugMode": true,
 				"blockPageViewEvent": true,
-				"extendPageViewParams": true,
 				"sendUserId": true,
+				"sdkBaseUrl": "https://www.example.com",
+				"serverContainerUrl": "https://analytics.example.com",
+				"piiPropertiesToIgnore": [
+					{"piiProperty": "email"},
+					{"piiProperty": "phone"}
+				],
 				"blacklistedEvents": [
 				  {
 					"eventName": "one"
@@ -128,6 +158,17 @@ func TestDestinationResourceGoogleAnalytics4(t *testing.T) {
 				],
 				"eventFilteringOption": "blacklistedEvents",
 				"useNativeSDK": {
+				  "web": true,
+				  "android": true,
+				  "ios": true
+				},
+				"capturePageView": {
+				  "web": "gtag"
+				},
+				"debugView": {
+				  "web": true
+				},
+				"overrideClientAndSessionId": {
 				  "web": true
 				},
 				"consentManagement": {
@@ -350,6 +391,13 @@ func TestDestinationResourceGoogleAnalytics4(t *testing.T) {
 					]
 				}
 			}`,
-		},
-	})
+	},
+}
+
+func TestDestinationResourceGoogleAnalytics4(t *testing.T) {
+	cmt.AssertDestination(t, "google_analytics4", googleAnalytics4TestConfigs)
+}
+
+func TestAccDestinationGoogleAnalytics4(t *testing.T) {
+	acc.AccAssertDestination(t, "google_analytics4", googleAnalytics4TestConfigs)
 }

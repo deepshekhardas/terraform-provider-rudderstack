@@ -77,18 +77,191 @@ $ terraform init && terraform apply
 
 ## Making a new release
 
-### Create a new tag with properly named version number
+Releases are automated with [release-please](https://github.com/googleapis/release-please)
+and GoReleaser — there is no manual tagging or local build step.
 
-``` shell
-git tag vX.Y.Z
-git push
+### 1. Merge changes to `main`
+
+`release-please` watches `main` and, from the [Conventional Commits](https://www.conventionalcommits.org)
+history, maintains an open **release PR** that bumps the version everywhere
+(`Makefile`, `rudderstack/provider.go`, `examples/main.tf`, the docs) and
+updates `CHANGELOG.md`.
+
+The next version is derived from the commit messages: `fix:` bumps the patch,
+`feat:` the minor, and `feat!:` / `BREAKING CHANGE:` the major.
+
+### 2. Merge the release PR
+
+Merging the `release-please` PR creates the `vX.Y.Z` tag and the GitHub
+Release.
+
+### 3. Artifacts are published automatically
+
+Publishing that GitHub Release triggers the **release** workflow
+(`.github/workflows/release.yml`), which runs GoReleaser to build and GPG-sign
+the provider archives and append them to the release. The Terraform Registry
+ingests the release from there.
+
+# Onboarding New Integrations with Claude Code
+
+This repo includes a Claude Code skill (`/onboard-integration`) that automates onboarding source/destination integrations to the Terraform provider.
+
+## What can this skill do?
+
+| Scenario | Supported? |
+|---|---|
+| Onboard a **brand new** integration | Yes |
+| **Add new fields** to an existing integration (from latest config JSON) | Yes |
+| Refactor, fix types, update descriptions on existing integrations | No — make those changes manually |
+
+## Prerequisites
+
+Before running the skill, make sure you have:
+
+1. **[Claude Code CLI](https://claude.com/claude-code)** installed
+2. **Integration config files** — The skill needs 3 JSON files (`db-config.json`, `schema.json`, `ui-config.json`) from the [`rudder-integrations-config`](https://github.com/rudderlabs/rudder-integrations-config) repo. You can provide them in one of three ways:
+   - **Auto-detect** — Clone `rudder-integrations-config` as a sibling directory (i.e., `../rudder-integrations-config`). The skill finds it automatically.
+   - **GitHub fetch** — If you have the GitHub MCP connector configured, the skill can fetch the files directly from GitHub.
+   - **Manual path** — Provide the absolute path to your local clone when prompted.
+3. **For E2E testing** — A `.env` file at the repo root with `RUDDERSTACK_ACCESS_TOKEN` and `RUDDERSTACK_API_URL` (see [E2E Testing](#e2e-testing) below).
+
+## Usage
+
+```
+/onboard-integration <name> <source|destination>
 ```
 
-### Create new release
+**Examples:**
+```
+/onboard-integration slack destination
+/onboard-integration shopify source
+```
 
-``` shell
-goreleaser release --rm-dist
-``` 
+If you omit the name or type, the skill will prompt you.
+
+## How it works
+
+### New integration
+1. **Gathers inputs** — Parses integration name, type, and locates config JSON files.
+2. **Checks for duplicates** — If an integration with the same name already exists, it offers to add new fields instead (see below).
+3. **Extracts metadata** — Reads `db-config.json`, `schema.json`, and `ui-config.json` to determine field names, types, validations, defaults, descriptions, consent management config, and source-type-specific fields (e.g., `connectionMode`, `useNativeSDK`).
+4. **Studies a similar integration** — Reads an existing integration with similar field patterns as a reference to ensure consistency.
+5. **Generates files** — Creates the `.go` implementation, unit tests, example `.tf`, and docs template following the repo's established patterns.
+6. **Validates** — Runs unit tests, generates docs (`make docs`), runs the full test suite (`go test ./...`), and lints (`make lint`).
+7. **E2E testing** — Runs plan-only validation (`make testacc-plan`) and, if a `RUDDERSTACK_ACCESS_TOKEN` is available, runs full CRUD acceptance tests against the live API.
+
+### Adding new fields to an existing integration
+When you run the skill for an integration that already exists, it:
+1. Compares the config JSON files against the current `.go` implementation.
+2. Shows you a table of **new fields** that exist in the config but are missing from the code.
+3. Lets you select which fields to add (all or specific ones).
+4. Updates the `.go`, test, example, and docs files, then runs the full validation and E2E pipeline.
+
+> **Note:** This skill does not support modifying existing fields, fixing types, refactoring, or any other changes to already-implemented integrations. For those, make changes manually.
+
+<a id="e2e-testing"></a>
+# E2E Testing
+
+The provider includes an E2E acceptance test framework that validates integrations against the real RudderStack control-plane API. Every registered source and destination has a corresponding `TestAcc*` function.
+
+> Operating the suite (environments, CI secrets, rotation, debugging, what's actually verified) is covered in [`E2E_TESTING.md`](E2E_TESTING.md). The section below is the contributor cheatsheet: how to run tests and how to add one for a new integration.
+
+## Two Modes
+
+| Mode | Env vars | What it does | API calls |
+|---|---|---|---|
+| **Plan-only** | `TF_ACC=1 TF_ACC_PLAN_ONLY=1` | Validates HCL config + provider schema | Zero |
+| **Full CRUD** | `TF_ACC=1` | Create → Update → Import → Destroy | ~10+ per integration (Create/Update/Delete plus multiple Gets → see `E2E_TESTING.md` for the breakdown) |
+
+- **Plan-only** runs for all integrations on every PR. It sets a dummy token automatically — no credentials needed.
+- **Full CRUD** runs only for integrations affected by the PR, using real API credentials. After each Create and Update step, the test fetches the resource from the API and verifies its config matches the expected `APICreate`/`APIUpdate` JSON from the test configs.
+
+## Setup
+
+Create a `.env` file at the repo root (git-ignored):
+
+```
+RUDDERSTACK_ACCESS_TOKEN=your-access-token
+RUDDERSTACK_API_URL=https://api.dev.rudderlabs.com  # same base URL CI uses; see E2E_TESTING.md
+```
+
+The Makefile auto-loads `.env` via `-include .env` + `export`.
+
+> **Note:** `RUDDERSTACK_API_URL` should be the base URL without `/v2`. For backward compatibility, a trailing `/v2` is stripped automatically.
+
+## Running Locally
+
+```bash
+# Plan-only validation for all integrations (no token needed):
+make testacc-plan
+
+# Full CRUD for a single destination:
+make testacc-dest DEST=webhook
+
+# Full CRUD for a single source:
+make testacc-source SRC=http
+
+# Full CRUD for connection tests:
+make testacc-conn
+
+# Full CRUD for everything:
+make testacc-all
+```
+
+The single-integration targets (`testacc-dest`, `testacc-source`) use a `(?i)`-prefixed regex so `DEST=webhook` matches `TestAccDestinationWebhook`. The bulk targets (`testacc-plan`, `testacc-all`, `testacc-conn`) use a case-sensitive `TestAcc*` prefix instead — all generated function names start with `TestAcc` so case-folding isn't needed.
+
+E2E tests reuse the same `[]configs.TestConfig` data as unit tests — no duplicated HCL. The framework lives in `internal/testutil/acc/`; see [`E2E_TESTING.md`](E2E_TESTING.md#where-the-framework-lives) for a per-file breakdown.
+
+## Adding E2E Tests for New Integrations
+
+### Destinations
+
+In `destination_{name}_test.go`, extract configs to a package-level var and add the E2E function:
+
+```go
+var exampleTestConfigs = []c.TestConfig{
+    {TerraformCreate: `...`, APICreate: `...`, TerraformUpdate: `...`, APIUpdate: `...`},
+}
+
+func TestDestinationResourceExample(t *testing.T) {
+    cmt.AssertDestination(t, "example", exampleTestConfigs)
+}
+
+func TestAccDestinationExample(t *testing.T) {
+    acc.AccAssertDestination(t, "example", exampleTestConfigs)
+}
+```
+
+### Sources
+
+In `sources_test.go`, add the E2E function:
+
+```go
+func TestAccSourceExample(t *testing.T) {
+    acc.AccAssertSource(t, "example", emptyTestConfigs)
+}
+```
+
+### Connections
+
+In `connections/connections_test.go`:
+
+```go
+func TestAccConnectionExampleToWebhook(t *testing.T) {
+    acc.AccAssertConnection(t, acc.ConnectionTestConfig{
+        Source:      "example",
+        Destination: "webhook",
+        DestConfig:  `webhook_url = "https://example.com/test"
+                      webhook_method = "POST"`,
+    })
+}
+```
+
+## CI, secrets, and operations
+
+CI orchestration (affected-integration detection, matrix CRUD jobs, summary gate) and the per-environment credentials model live in [`E2E_TESTING.md`](E2E_TESTING.md). The step-by-step PAT rotation procedure is in the platform team's runbook (the operational guide points to it). Read both before rotating the PAT or debugging a CI-only failure.
+
+Note: `make test-ci` enforces coverage — any registered integration missing its `TestAcc*` function will fail the build. Matching is case-insensitive (`TestAccDestinationCustomerIO` matches the registry key `customerio`).
 
 # Related
 
