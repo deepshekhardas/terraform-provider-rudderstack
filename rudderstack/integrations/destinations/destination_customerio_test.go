@@ -3,31 +3,72 @@ package destinations_test
 import (
 	"testing"
 
+	acc "github.com/rudderlabs/terraform-provider-rudderstack/internal/testutil/acc"
 	cmt "github.com/rudderlabs/terraform-provider-rudderstack/internal/testutil/cm"
 	c "github.com/rudderlabs/terraform-provider-rudderstack/rudderstack/configs"
 )
 
-func TestDestinationResourceCustomerIO(t *testing.T) {
-	cmt.AssertDestination(t, "customerio", []c.TestConfig{
-		{
-			TerraformCreate: `
+var customerioTestConfigs = []c.TestConfig{
+	{
+		TerraformCreate: `
 				site_id = "cd820c1b31d8f2696f3b"
 				api_key = "cg044d23bc1beb3031c5"
 				datacenter = "US"
 
 				use_native_sdk {
+					web     = true
+					android = true
+					ios     = true
+				}
+
+				send_page_name_in_sdk {
 					web = true
 				}
+
+				data_use_in_app {
+					web = true
+				}
+
+				auto_track_device_attributes {
+					android = true
+					ios     = false
+				}
+
+				background_queue_min_number_of_tasks {
+					android = "10"
+				}
+
+				background_queue_seconds_delay {
+					android = "30"
+				}
 			`,
-			APICreate: `{
+		APICreate: `{
 				"siteID": "cd820c1b31d8f2696f3b",
 				"apiKey": "cg044d23bc1beb3031c5",
 				"datacenter": "US",
 				"useNativeSDK": {
+					"web": true,
+					"android": true,
+					"ios": true
+				},
+				"sendPageNameInSDK": {
 					"web": true
+				},
+				"dataUseInApp": {
+					"web": true
+				},
+				"autoTrackDeviceAttributes": {
+					"android": true,
+					"ios": false
+				},
+				"backgroundQueueMinNumberOfTasks": {
+					"android": "10"
+				},
+				"backgroundQueueSecondsDelay": {
+					"android": "30"
 				}
 			}`,
-			TerraformUpdate: `
+		TerraformUpdate: `
 				site_id = "cd820c1b31d8f2696f3b"
 				api_key = "cg044d23bc1beb3031c5"
 				datacenter = "EU"
@@ -106,7 +147,7 @@ func TestDestinationResourceCustomerIO(t *testing.T) {
 					}]
 				}
 			`,
-			APIUpdate: `{
+		APIUpdate: `{
 				"siteID": "cd820c1b31d8f2696f3b",
 				"apiKey": "cg044d23bc1beb3031c5",
 				"datacenter": "EU",
@@ -339,6 +380,13 @@ func TestDestinationResourceCustomerIO(t *testing.T) {
 					]
 				}
 			}`,
-		},
-	})
+	},
+}
+
+func TestDestinationResourceCustomerIO(t *testing.T) {
+	cmt.AssertDestination(t, "customerio", customerioTestConfigs)
+}
+
+func TestAccDestinationCustomerIO(t *testing.T) {
+	acc.AccAssertDestination(t, "customerio", customerioTestConfigs)
 }

@@ -1,11 +1,17 @@
+-include .env
+export
+
 GO=go
 GOLANGCI=github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.9.0
+TFPLUGINDOCS=github.com/hashicorp/terraform-plugin-docs/cmd/tfplugindocs@v0.24.0
 
 HOSTNAME=rudderstack.com
 NAMESPACE=rudderlabs
 NAME=rudderstack
 BINARY=terraform-provider-${NAME}
-VERSION=4.1.0
+# x-release-please-start-version
+VERSION=4.5.1
+# x-release-please-end-version
 OS_ARCH=$(shell go env GOOS)_$(shell go env GOARCH)
 
 default: install
@@ -49,7 +55,7 @@ testacc:
 
 .PHONY: docs
 docs:
-	go run github.com/hashicorp/terraform-plugin-docs/cmd/tfplugindocs
+	$(GO) run $(TFPLUGINDOCS)
 
 .PHONY: fmt
 fmt: ## Formats all go files
@@ -59,3 +65,31 @@ fmt: ## Formats all go files
 .PHONY: test-ci
 test-ci:
 	go test ./... -timeout 30m
+
+.PHONY: testacc-all
+testacc-all: ## Run all E2E acceptance tests (full CRUD)
+	TF_ACC=1 go test ./rudderstack/integrations/... ./rudderstack/retl/ -v -run "TestAcc" -timeout 60m -count=1
+
+.PHONY: testacc-dest
+testacc-dest: ## Run E2E for one destination. Usage: make testacc-dest DEST=webhook
+	@if [ -z "$(DEST)" ]; then echo "Usage: make testacc-dest DEST=<name>"; exit 1; fi
+	@pattern=$$(printf '%s' "$(DEST)" | sed 's/_/.*/g'); \
+	TF_ACC=1 go test ./rudderstack/integrations/destinations/ -v -run "(?i)TestAccDestination.*$$pattern" -timeout 10m -count=1
+
+.PHONY: testacc-source
+testacc-source: ## Run E2E for one source. Usage: make testacc-source SRC=http
+	@if [ -z "$(SRC)" ]; then echo "Usage: make testacc-source SRC=<name>"; exit 1; fi
+	@pattern=$$(printf '%s' "$(SRC)" | sed 's/_/.*/g'); \
+	TF_ACC=1 go test ./rudderstack/integrations/sources/ -v -run "(?i)TestAccSource.*$$pattern" -timeout 10m -count=1
+
+.PHONY: testacc-conn
+testacc-conn: ## Run E2E for connections. Usage: make testacc-conn
+	TF_ACC=1 go test ./rudderstack/integrations/connections/ -v -run "TestAccConnection" -timeout 10m -count=1
+
+.PHONY: testacc-retl
+testacc-retl: ## Run E2E for RETL resources (sources + connections)
+	TF_ACC=1 go test ./rudderstack/retl/ -v -run "TestAccRETL" -timeout 10m -count=1
+
+.PHONY: testacc-plan
+testacc-plan: ## Plan-only validation for all integrations (no API calls)
+	TF_ACC=1 TF_ACC_PLAN_ONLY=1 go test ./rudderstack/integrations/... ./rudderstack/retl/ -run "TestAcc" -timeout 5m -count=1

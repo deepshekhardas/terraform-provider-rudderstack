@@ -3,12 +3,14 @@ package rudderstack
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
-	"github.com/rudderlabs/rudder-api-go/client"
+	"github.com/rudderlabs/rudder-iac/api/client"
 	"github.com/rudderlabs/terraform-provider-rudderstack/rudderstack/configs"
+	"github.com/rudderlabs/terraform-provider-rudderstack/rudderstack/retl"
 )
 
 func init() {
@@ -26,9 +28,9 @@ func NewWithConfigureClientFunc(f ConfigureClientFunc) *schema.Provider {
 			"api_url": {
 				Type:        schema.TypeString,
 				Optional:    true,
-				DefaultFunc: schema.EnvDefaultFunc("RUDDERSTACK_API_URL", "https://api.rudderstack.com/v2"),
+				DefaultFunc: schema.EnvDefaultFunc("RUDDERSTACK_API_URL", "https://api.rudderstack.com"),
 				Description: "The base URL of Rudderstack API. If not set, the provider will first look for a value in the " +
-					"`RUDDERSTACK_API_URL` environmental value, and finally default to `https://api.rudderstack.com/v2` " +
+					"`RUDDERSTACK_API_URL` environmental value, and finally default to `https://api.rudderstack.com` " +
 					"if that is missing.",
 			},
 			"access_token": {
@@ -52,7 +54,11 @@ func New() *schema.Provider {
 
 func resourcesMap() map[string]*schema.Resource {
 	resources := map[string]*schema.Resource{
-		"rudderstack_connection": resourceConnection(),
+		"rudderstack_connection":                            resourceConnection(),
+		"rudderstack_retl_source_model":                     retl.ResourceModel(),
+		"rudderstack_retl_source_table":                     retl.ResourceTable(),
+		"rudderstack_retl_connection":                       retl.ResourceConnection(),
+		"rudderstack_retl_connection_customerio_audience":   retl.ResourceConnectionCustomerIOAudience(),
 	}
 
 	// append sources and destinations from integration registries
@@ -72,11 +78,16 @@ func resourcesMap() map[string]*schema.Resource {
 func configureClient(ctx context.Context, d *schema.ResourceData) (*Client, diag.Diagnostics) {
 	apiUrl := d.Get("api_url").(string)
 	accessToken := d.Get("access_token").(string)
-	client, err := NewAPIClient(accessToken,
+
+	// Strip trailing /v2 (with or without trailing slash) for backward compatibility
+	// with users who have the old URL set. The new rudder-iac client includes /v2 in its service paths.
+	apiUrl = strings.TrimSuffix(strings.TrimRight(apiUrl, "/"), "/v2")
+
+	c, err := NewAPIClient(accessToken,
 		client.WithBaseURL(apiUrl),
-		client.WithUserAgent("terraform-provider-rudderstack/4.1.0"))
+		client.WithUserAgent("terraform-provider-rudderstack/4.5.1")) // x-release-please-version
 	if err != nil {
 		return nil, diag.FromErr(err)
 	}
-	return client, diag.Diagnostics{}
+	return c, diag.Diagnostics{}
 }
